@@ -19,7 +19,8 @@ pip install -r requirements.txt
 
 ## Usage
 After the installation, download CCLE_RNAseq_rsem_genes_tpm_20180929.txt.gz and Cell_lines_annotations_20181226.txt from [depmap](https://depmap.org/portal/).
-Then simply run the code with ```bash
+Then simply run the code with 
+```bash
 python3 main.py
 ```
 
