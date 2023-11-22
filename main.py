@@ -44,8 +44,6 @@ rnaseq_tpm = rnaseq_tpm.apply(lambda x: np.log2(x + 0.001) if np.issubdtype(x.dt
 common_cell_lines = rnaseq_metadata['CCLE_ID'].isin(rnaseq_tpm.columns)
 rnaseq_metadata = rnaseq_metadata[common_cell_lines]
 
-print(rnaseq_metadata.shape)
-
 # Check and reorder metadata columns
 if not rnaseq_metadata['CCLE_ID'].equals(rnaseq_tpm.columns[1:]):
     rnaseq_metadata = rnaseq_metadata.set_index(rnaseq_metadata['CCLE_ID'])
