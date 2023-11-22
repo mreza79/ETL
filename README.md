@@ -3,8 +3,14 @@ Simple ETL to process data
 
 ## Installation
 
-First create python virtual environment by ```bash python3.12 -m venv venv ```
-And then use ```bash source venv/bin/activate ```
+First create python virtual environment by
+```bash 
+python3.12 -m venv venv
+```
+And then use 
+```bash 
+source venv/bin/activate
+```
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install requirements.txt.
 
 ```bash
