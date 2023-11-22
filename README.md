@@ -14,16 +14,15 @@ source venv/bin/activate
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install requirements.txt.
 
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## Usage
-After the installation, download CCLE_RNAseq_rsem_genes_tpm_20180929.txt.gz and Cell_lines_annotations_20181226.txt from [depmap](https://depmap.org/portal/).
-Then simply run the code with 
+After the installation, simply run the code with 
 ```bash
 python3 main.py
 ```
-
+It will download the CCLE_RNAseq_rsem_genes_tpm_20180929.txt.gz and Cell_lines_annotations_20181226.txt based on a file downloaded by depmap and then it will create two csv files with rnaseq_metadata.csv and rnaseq_tpm.csv
 
 
 ## Contributing

@@ -1,8 +1,30 @@
 import pandas as pd
 import numpy as np
+import requests
 
-rnaseq_tpm  = pd.read_csv("./CCLE_RNAseq_rsem_genes_tpm_20180929.txt.gz",compression="gzip", sep='\t')
-rnaseq_metadata = pd.read_csv("./Cell_lines_annotations_20181226.txt", sep='\t')
+# Function to download files from the DepMap Portal API
+def download_file_from_depmap(file_name):
+    depmap_url = f"https://depmap.org/portal/api/download/files"
+    response = requests.get(depmap_url)
+    if response.status_code == 200:
+        data = response.content
+        open("response.csv", "wb").write(data)
+        df = pd.read_csv("./response.csv")
+        # df = df.convert_dtypes()
+        url = df.loc[df['filename'] == file_name].values.tolist()[0][3]
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.content
+            open(f"{file_name}", "wb").write(data)
+            return pd.read_csv(f"{file_name}", sep="\t")
+        else:
+            raise ValueError(f"Failed to download file {file_name} from DepMap Portal API.")
+    else:
+        raise ValueError(f"Failed to download file {file_name} from DepMap Portal API.")
+
+
+rnaseq_tpm  = download_file_from_depmap("CCLE_RNAseq_rsem_genes_tpm_20180929.txt.gz")
+rnaseq_metadata = download_file_from_depmap("Cell_lines_annotations_20181226.txt")
 
 MISSING_VALUES_NUMBER = 700
 
@@ -21,6 +43,8 @@ rnaseq_tpm = rnaseq_tpm.apply(lambda x: np.log2(x + 0.001) if np.issubdtype(x.dt
 # Subset rnaseq_metadata based on common cell line names between rnaseq_metadata and rnaseq_tpm 
 common_cell_lines = rnaseq_metadata['CCLE_ID'].isin(rnaseq_tpm.columns)
 rnaseq_metadata = rnaseq_metadata[common_cell_lines]
+
+print(rnaseq_metadata.shape)
 
 # Check and reorder metadata columns
 if not rnaseq_metadata['CCLE_ID'].equals(rnaseq_tpm.columns[1:]):
