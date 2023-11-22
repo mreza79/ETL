@@ -210,5 +210,5 @@ pyrightconfig.json
 
 *.csv
 
-CCLE_RNAseq_rsem_genes_tpm_20180929.txt
+CCLE_RNAseq_rsem_genes_tpm_20180929.txt.gz
 Cell_lines_annotations_20181226.txt
