@@ -3,6 +3,12 @@ Simple ETL to process data
 
 ## Installation
 
+You can use this command to automate the whole process of running the installation if you want to
+```bash
+sh run.sh
+```
+Or
+
 First create python virtual environment by
 ```bash 
 python3.12 -m venv venv
