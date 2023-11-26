@@ -9,7 +9,7 @@ sh run.sh
 ```
 Or
 
-First create python virtual environment by
+First create a python virtual environment by
 ```bash 
 python3.12 -m venv venv
 ```
