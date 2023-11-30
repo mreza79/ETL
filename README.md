@@ -1,11 +1,21 @@
 # ETL
 Simple ETL to process data
 
-## Installation
+## Run
 
 You can use this command to automate the whole process of running the installation if you want to
 ```bash
 sh run.sh
+```
+Or
+
+You can use this command to automate the whole process of running the installation if you want to
+```bash
+make run
+```
+Or if you have docker installed on your machine you can simply run this code to run the project and it will generate files into files directory
+```bash
+make run-docker
 ```
 Or
 
@@ -22,8 +32,6 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install require
 ```bash
 pip3 install -r requirements.txt
 ```
-
-## Usage
 After the installation, simply run the code with 
 ```bash
 python3 main.py
