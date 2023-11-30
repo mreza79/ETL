@@ -18,7 +18,7 @@ $(VENV)/bin/activate: requirements.txt
 	python3 -m venv $(VENV)
 	./$(VENV)/bin/pip3 install -r requirements.txt --upgrade pip
 
-env: $(VENV)/bin/activate ## venv is a shortcut target
+env: $(VENV)/bin/activate ## creates virtual env
 
 run: env ## to run a code
 	./$(VENV)/bin/python3 app/main.py
