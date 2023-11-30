@@ -17,7 +17,14 @@ Or if you have docker installed on your machine you can simply run this code to 
 ```bash
 make run-docker
 ```
+
+Use this command to list ```bash make ``` command
+```bash
+make help
+```
+
 Or
+
 
 First create a python virtual environment by
 ```bash 
