@@ -30,8 +30,6 @@ clean: ## remove generated files
 run-docker: ## run the app with docker and copy files from docker to local
 	docker build -t $(IMAGE) . 
 	docker run -v $(PWD)/files:/app/files $(IMAGE)
-	docker rm -f $$(docker ps -a -q --filter="ancestor=$(IMAGE)")
-	docker rmi $(IMAGE)
 
 delete-docker: ## delete generated container and image
 	docker rm -f $$(docker ps -a -q --filter="ancestor=$(IMAGE)")
