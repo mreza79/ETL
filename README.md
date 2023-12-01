@@ -18,7 +18,7 @@ Or if you have docker installed on your machine you can simply run this code to 
 make run-docker
 ```
 
-Use this command to list ```bash make``` command
+Use this command to list ```make``` command
 ```bash
 make help
 ```
