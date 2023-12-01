@@ -6,7 +6,7 @@ from pathlib import Path
 
 # Function to download files from the DepMap Portal API
 def download_file_from_depmap(filepath: Path, file_name: str) -> DataFrame:
-    depmap_url = f"https://depmap.org/portal/api/download/files"
+    depmap_url = "https://depmap.org/portal/api/download/files"
     response = requests.get(depmap_url)
     if response.status_code == 200:
         data = response.content
@@ -38,13 +38,13 @@ def main(filepath: Path):
     columns_to_drop = missing_values[missing_values > MISSING_VALUES_NUMBER].index
     rnaseq_metadata = rnaseq_metadata.drop(columns=columns_to_drop)
 
-    # Drop column named transcript_ids 
+    # Drop column named transcript_ids
     rnaseq_tpm = rnaseq_tpm.drop(columns=['transcript_ids'])
 
     # apply Log2(x+0.001) where x is numeric
     rnaseq_tpm = rnaseq_tpm.apply(lambda x: np.log2(x + 0.001) if np.issubdtype(x.dtype, np.number) else x)
 
-    # Subset rnaseq_metadata based on common cell line names between rnaseq_metadata and rnaseq_tpm 
+    # Subset rnaseq_metadata based on common cell line names between rnaseq_metadata and rnaseq_tpm
     common_cell_lines = rnaseq_metadata['CCLE_ID'].isin(rnaseq_tpm.columns)
     rnaseq_metadata = rnaseq_metadata[common_cell_lines]
 
