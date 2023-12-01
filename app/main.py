@@ -5,26 +5,28 @@ from pandas import DataFrame
 from pathlib import Path
 
 # Function to download files from the DepMap Portal API
-def download_file_from_depmap(filepath: str, file_name: str) -> DataFrame:
+def download_file_from_depmap(filepath: Path, file_name: str) -> DataFrame:
     depmap_url = f"https://depmap.org/portal/api/download/files"
     response = requests.get(depmap_url)
     if response.status_code == 200:
         data = response.content
-        open(filepath + "/response.csv", "wb").write(data)
-        df = pd.read_csv(filepath + "/response.csv")
+        with open(filepath / "response.csv", "wb") as file:
+            file.write(data)
+        df = pd.read_csv(filepath / "response.csv")
         # df = df.convert_dtypes()
-        url = df.loc[df['filename'] == file_name].values.tolist()[0][3]
+        url = df.loc[df['filename'] == file_name].values[0][3]
         response = requests.get(url)
         if response.status_code == 200:
             data = response.content
-            open(f"{filepath}/{file_name}", "wb").write(data)
-            return pd.read_csv(f"{filepath}/{file_name}", sep="\t")
+            with open(filepath / file_name, "wb") as file:
+                file.write(data)
+            return pd.read_csv(filepath / file_name, sep="\t")
         else:
             raise ValueError(f"Failed to download file {file_name} from DepMap Portal API.")
     else:
         raise ValueError(f"Failed to download file {file_name} from DepMap Portal API.")
 
-def main(filepath: str):
+def main(filepath: Path):
     rnaseq_tpm  = download_file_from_depmap(filepath, "CCLE_RNAseq_rsem_genes_tpm_20180929.txt.gz")
     rnaseq_metadata = download_file_from_depmap(filepath, "Cell_lines_annotations_20181226.txt")
 
@@ -53,13 +55,12 @@ def main(filepath: str):
 
 
     # Save transformed data to CSV files
-    rnaseq_metadata.to_csv(filepath + "/rnaseq_metadata.csv", index=False)
-    rnaseq_tpm.to_csv(filepath + "/rnaseq_tpm.csv", index=False)
+    rnaseq_metadata.to_csv(filepath / "rnaseq_metadata.csv", index=False)
+    rnaseq_tpm.to_csv(filepath / "rnaseq_tpm.csv", index=False)
 
 if __name__ == "__main__":
     filepath = Path("files")
     filepath.mkdir(parents=True, exist_ok=True)
-    filepath = str(filepath)
 
     main(filepath)
 
